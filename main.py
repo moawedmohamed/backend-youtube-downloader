@@ -105,7 +105,7 @@ def download_video(
         except:
             pass
     
-    output_path = f"{DOWNLOAD_FOLDER}/%(title)s.%(ext)s"
+    output_path = os.path.join(DOWNLOAD_FOLDER, "%(title).50s - %(id)s.%(ext)s")
 
     if format == "mp3":
         command = [
@@ -129,6 +129,7 @@ def download_video(
             "yt-dlp",
             "--extractor-args", "youtube:player_client=android",  # Android client يعمل بدون PO token
             "--no-check-certificates",
+            "--restrict-filenames",
             "--format", format_string,
             "--merge-output-format", "mp4",
             "-o", output_path,
